@@ -13,9 +13,14 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-@Data
+@NoArgsConstructor //기본생성자 생성
+@AllArgsConstructor //모든 변수 값 파라미터로 받는 생성자 생성
+@ToString(exclude = {"searchCondition", "searchKeyword"})  //search 제외하고 toString
 @Entity// 일반자바객체와 구분하기위한 어노테이션, 생략불가, 엔티티 이름과 동일한 테이블 매핑 -> 이름 다르면 @Table
 @Table(name = "S_EMP",
 		uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME","MAILID"}) })// 엔티티와 매핑할 테이블 지정 , 이름이 다른 경우: name 속성으로 매핑
@@ -36,7 +41,6 @@ public class Employee {
 	
 	@Column(length = 25)
 	private String title;
-	
 	
 	@Column(name="DEPT_NAME", length = 30)
 	private String deptName;
