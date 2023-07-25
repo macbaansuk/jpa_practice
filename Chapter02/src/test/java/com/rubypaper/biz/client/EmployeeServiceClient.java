@@ -6,6 +6,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 import com.rubypaper.biz.domain.Employee;
+import com.rubypaper.biz.domain.EmployeeId;
 
 public class EmployeeServiceClient {
 	
@@ -21,19 +22,14 @@ public class EmployeeServiceClient {
 		//엔티티 트랜잭션 생성
 		EntityTransaction tx = em.getTransaction();
 		try {
-			tx.begin();
 			
-			//회원 등록 요청
-			Employee employee = new Employee();
-			employee.setName("둘리");
-			em.persist(employee);
-			
-			tx.commit();
-			
+			//회원 검색 요청
+			EmployeeId empId = new EmployeeId(1L, "geust123");
+			Employee findEmployee = em.find(Employee.class, empId);
+			System.out.println("검색된 직원 벙보 : " + findEmployee.toString());
+//			
 		} catch (Exception e) {
 			e.printStackTrace();
-			//트랜잭션 종료(ROLLBACK)
-			tx.rollback();
 		} finally {
 			//엔티티 매니저 및 엔티티 매니저 팩토리 종료
 			em.close();
