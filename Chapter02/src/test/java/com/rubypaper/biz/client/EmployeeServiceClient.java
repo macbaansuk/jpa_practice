@@ -21,22 +21,12 @@ public class EmployeeServiceClient {
 		//엔티티 트랜잭션 생성
 		EntityTransaction tx = em.getTransaction();
 		try {
-			// 직원 엔티티 생성 및 초기화
-			Employee employee  = new Employee();
-//			employee.setId(1L);  
-			employee.setName("둘리");
+			tx.begin();
 			
 			//회원 등록 요청
-			tx.begin();
-			System.out.println("등록 전 id : " + employee.getId());
+			Employee employee = new Employee();
+			employee.setName("둘리");
 			em.persist(employee);
-			
-			for(int i = 0; i < 30; i++) {
-				Thread.sleep(1000);
-				System.out.println("ZZZ...");
-			}
-			
-			System.out.println("등록 후 id : " + employee.getId());
 			
 			tx.commit();
 			
