@@ -25,7 +25,7 @@ import lombok.ToString;
 @Table(name = "S_EMP")
 public class Employee {
 	@Id
-	private EmployeeId empId;
+	private String empId;
 	private String name;
 //	private String mailId;
 //	private Date startDate;
