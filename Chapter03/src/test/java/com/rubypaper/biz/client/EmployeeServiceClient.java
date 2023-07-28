@@ -1,5 +1,7 @@
 package com.rubypaper.biz.client;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import javax.persistence.EntityManagerFactory;
@@ -22,26 +24,22 @@ public class EmployeeServiceClient {
 		EntityTransaction tx = em.getTransaction();
 		
 		try {
-			// 직원 엔티티 등록
-			Employee employee = new Employee();
-			employee.setName("둘리");
-			
-			//직원 이름 변경
+			//직원 등록
 			tx.begin();
-			//직원 등록  --> 관리 상태로 전환
-			em.persist(employee);
-			//트랜잭션 종료(COMMIT)
-			tx.commit(); 
-			
-			for(int i = 0; i < 30; i++) {
-				Thread.sleep(1000);
-				System.out.println("다른 사용자가 데이터 수정중 ... " + i);
+			for(int i = 2; i <=10; i++) {
+				Employee employee = new Employee();
+				employee.setName("직원-" + i);
+				em.persist(employee);
 			}
+			tx.commit();
 			
-			//엔티티 REFRESH
-			em.refresh(employee);
-			System.out.println("갱신된 직우너 정보 : " + employee.toString());
-			
+			//직원 목록 조회
+			String jpql = "SELECT e FROM Employee e ORDER BY e.id DESC";
+			List<Employee> employeeList  = 
+					em.createQuery(jpql, Employee.class).getResultList();
+			for(Employee employee : employeeList) {
+				System.out.println("---> " + employee.toString());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			
