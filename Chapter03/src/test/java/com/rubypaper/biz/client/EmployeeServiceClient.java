@@ -28,19 +28,29 @@ public class EmployeeServiceClient {
 		EntityTransaction tx = em.getTransaction();
 		
 		try {
-			//직원 검색
-			Employee findEmp = em.find(Employee.class, 1L);
-			
+			// 직원 엔티티 등록
+			Employee employee = new Employee();
+			employee.setName("둘리");
 			
 			//직원 이름 변경
 			tx.begin();
-			findEmp.setName("뚤리");
 			//직원 등록  --> 관리 상태로 전환
-			
+			em.persist(employee);
 			//트랜잭션 종료(COMMIT)
 			tx.commit(); 
 			
+			//모든 엔티티를 분리 상태로 전환시킨다.
+			em.clear();
 			
+			//직원 엔티티 이름 수정
+			tx.begin();
+			employee.setName("뚤리");
+			Employee mergedEmp = em.merge(employee); //mergedEmp만 관리상태
+			tx.commit(); 
+			
+			//광리 상태 여부 확인
+			System.out.println("employee 관리 : " + em.contains(employee));
+			System.out.println("mergedEmp 관리 : " +em.contains(mergedEmp));
 			
 			
 			
