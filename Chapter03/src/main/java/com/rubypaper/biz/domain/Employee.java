@@ -24,8 +24,11 @@ import lombok.ToString;
 @Entity// 일반자바객체와 구분하기위한 어노테이션, 생략불가, 엔티티 이름과 동일한 테이블 매핑 -> 이름 다르면 @Table
 @Table(name = "S_EMP")
 public class Employee {
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id @GeneratedValue//(strategy = GenerationType.IDENTITY)  -> GenerationType.Auto
+	@Column(length = 7, nullable = false)
 	private Long id;
+	
+	@Column(length = 25, nullable = false)
 	private String name;
 //	}
 }
