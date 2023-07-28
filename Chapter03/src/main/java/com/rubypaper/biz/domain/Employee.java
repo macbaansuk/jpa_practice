@@ -17,10 +17,14 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import lombok.Data;
 import lombok.ToString;
 
 @Data
+@DynamicUpdate  //변경된변수만 UPDATE
 @Entity// 일반자바객체와 구분하기위한 어노테이션, 생략불가, 엔티티 이름과 동일한 테이블 매핑 -> 이름 다르면 @Table
 @Table(name = "S_EMP")
 public class Employee {
