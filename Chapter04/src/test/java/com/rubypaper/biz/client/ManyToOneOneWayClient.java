@@ -26,6 +26,13 @@ public class ManyToOneOneWayClient {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		
+		//부서에 대한 참조 제거
+		Employee employee1 = em.find(Employee.class, 1L);
+		employee1.setDept(null);
+		Employee employee2 = em.find(Employee.class, 2L);
+		employee2.setDept(null);
+		
+		
 		Department department = em.find(Department.class, 1L);
 		em.remove(department);
 		em.getTransaction().commit();
@@ -51,6 +58,7 @@ public class ManyToOneOneWayClient {
 	private static void dataSelect(EntityManagerFactory emf) {
 		EntityManager em = emf.createEntityManager();
 		Employee employee = em.find(Employee.class, 2L);
+//		System.out.println(employee.getName() + " 직원이 검색됨" +
 		System.out.println(employee.getName() + "의 부서 : " + 
 			employee.getDept().getName());
 	}

@@ -2,6 +2,7 @@ package com.rubypaper.biz.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +23,7 @@ public class Employee {
 	@Column(length = 25, nullable = false)
 	private String name;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY) 
 	@JoinColumn(name = "DEPT_ID")
 	private Department dept;
 }
