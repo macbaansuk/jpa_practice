@@ -31,7 +31,15 @@ public class Employee {
 	public void setDept(Department department) {
 		this.dept = department;
 		
+//		if(department != null) {
 		//Department 엔티티의 컬렉션에도 Employee 참조를 설정한다.
 		department.getEmployeeList().add(this);
+//		}
 	}
+	
+	//부서 정보를 null로 설정하여 직원을 대기 상태로 전환시킨다.
+	public void standby() {
+		this.dept = null;
+	}
+	
 }

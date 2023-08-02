@@ -16,8 +16,8 @@ public class ManyToOneBothWayClient {
 			Persistence.createEntityManagerFactory("Chapter04");
 		try {		
 			dataInsert(emf);
-			dataSelect(emf);
-//			dataDelete(emf);
+			dataDelete(emf);
+//			dataSelect(emf);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -25,26 +25,26 @@ public class ManyToOneBothWayClient {
 		}
 	}
 	
-//	private static void dataDelete(EntityManagerFactory emf) {
-//		EntityManager em = emf.createEntityManager();
-//		em.getTransaction().begin();
-//		
-//		// 부서 검색
-//		Department departmemt = em.find(Department.class, 1L);
-//
-//		// 직원의 부서 정보 수정
-//		List<Employee> employeeList = departmemt.getEmployeeList();		
-//		for (Employee employee : employeeList) {
-//			employee.standby();
-//		}
-//
-//		// 부서 삭제
-//		em.remove(departmemt);
-//
-//
-//		em.getTransaction().commit();
-//		em.close();
-//	}
+	private static void dataDelete(EntityManagerFactory emf) {
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		
+		// 부서 검색
+		Department departmemt = em.find(Department.class, 1L);
+
+		// 직원의 부서 정보 수정
+		List<Employee> employeeList = departmemt.getEmployeeList();		
+		for(Employee employee : employeeList) {
+			employee.standby();
+		}
+		
+		// 부서 삭제
+		em.remove(departmemt);
+
+
+		em.getTransaction().commit();
+		em.close();
+	}
 
 	private static void dataSelect(EntityManagerFactory emf) {
 		EntityManager em = emf.createEntityManager();
@@ -73,7 +73,7 @@ public class ManyToOneBothWayClient {
 			Employee employee = new Employee();
 			employee.setName("직원-" + i);
 			employee.setDept(departmemt);
-			em.persist(employee);
+//			em.persist(employee);
 		}
 		
 		em.persist(departmemt);
