@@ -63,6 +63,7 @@ public class ManyToOneBothWayClient {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		
+		
 		// 부서 등록
 		Department departmemt = new Department();
 		departmemt.setName("개발부");
@@ -79,6 +80,14 @@ public class ManyToOneBothWayClient {
 		employee2.setName("도우너");
 		employee2.setDept(departmemt);
 		em.persist(employee2);
+		
+		
+		// Department.employeeList에 Employee 등록
+//		departmemt.getEmployeeList().add(employee1);
+//		departmemt.getEmployeeList().add(employee2);
+		
+		System.out.println(departmemt.getName() + "의 직원 수 : " +
+		departmemt.getEmployeeList().size());
 		
 		em.getTransaction().commit();
 		em.close();
