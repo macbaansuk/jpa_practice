@@ -1,5 +1,6 @@
 package com.rubypaper.biz.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,12 +24,13 @@ public class Employee {
 	@Column(length = 25, nullable = false)
 	private String name;
 	
-	@ManyToOne(fetch = FetchType.LAZY) 
+	@ManyToOne(cascade = CascadeType.PERSIST) 
 	@JoinColumn(name = "DEPT_ID")
 	private Department dept;
 	
 	public void setDept(Department department) {
 		this.dept = department;
+		
 		//Department 엔티티의 컬렉션에도 Employee 참조를 설정한다.
 		department.getEmployeeList().add(this);
 	}

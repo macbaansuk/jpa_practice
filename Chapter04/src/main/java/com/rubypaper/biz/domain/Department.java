@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,6 +31,6 @@ public class Department {
 	@Column(length = 25, nullable = false)
 	private String name;
 	
-	@OneToMany(mappedBy = "dept", fetch = FetchType.EAGER)
-	private Set<Employee> employeeList = new HashSet<Employee>();
+	@OneToMany(mappedBy = "dept", cascade = CascadeType.PERSIST)
+	private List<Employee> employeeList = new ArrayList<Employee>();
 }

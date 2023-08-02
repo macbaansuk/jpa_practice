@@ -67,27 +67,17 @@ public class ManyToOneBothWayClient {
 		// 부서 등록
 		Department departmemt = new Department();
 		departmemt.setName("개발부");
+		
+		// 직원 여러명 등록
+		for(int i = 1; i <=5; i++) {
+			Employee employee = new Employee();
+			employee.setName("직원-" + i);
+			employee.setDept(departmemt);
+			em.persist(employee);
+		}
+		
 		em.persist(departmemt);
 		
-		// 직원 등록
-		Employee employee1 = new Employee();
-		employee1.setName("둘리");
-		employee1.setDept(departmemt);
-		em.persist(employee1);
-		
-		// 직원 등록
-		Employee employee2 = new Employee();
-		employee2.setName("도우너");
-		employee2.setDept(departmemt);
-		em.persist(employee2);
-		
-		
-		// Department.employeeList에 Employee 등록
-//		departmemt.getEmployeeList().add(employee1);
-//		departmemt.getEmployeeList().add(employee2);
-		
-		System.out.println(departmemt.getName() + "의 직원 수 : " +
-		departmemt.getEmployeeList().size());
 		
 		em.getTransaction().commit();
 		em.close();
