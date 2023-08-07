@@ -24,11 +24,10 @@ public class Employee {
 	@Column(length = 25, nullable = false)
 	private String name;
 	
-	@OneToOne(optional = false, fetch = FetchType.EAGER) //양방향 매핑을 위해 두 객체에 모두 @OneToOne 설정
-	@JoinColumn(name = "EMP_CARD_ID")  //외래키 칼럼 이름
+	@OneToOne(mappedBy = "employee")
 	private EmployeeCard card;
-
-	public void setEmployeeCard(EmployeeCard card){ ///양방향 참조 메서드
+	
+	public void setEmployeeCard(EmployeeCard card) {
 		this.card = card;
 		card.setEmployee(this);
 	}

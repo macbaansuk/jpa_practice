@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -24,7 +25,7 @@ import lombok.ToString;
 public class EmployeeCard {
 
 	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id //@GeneratedValue -> employee객체의 식별자 값을 같이 사용하기위해 지움
 	@Column(name = "CARD_ID")
 	private Long CardId; //사원증 아이디
 	
@@ -33,7 +34,9 @@ public class EmployeeCard {
 	
 	private String role;  //권한
 	
-	@OneToOne(mappedBy = "card") //소유자가 아니기때문에 mappedBy -> 연관관계 주인의 참조변수(card) 지정
+	@MapsId //@JoinColumn으로 매핑한 외래키 칼럼을 기본키 칼럼으로 사용
+	@OneToOne
+	@JoinColumn(name = "EMP_ID")
 	private Employee employee;
 	
 	

@@ -53,14 +53,10 @@ public class OneToOneOneWayClient {
 		card.setRole("MASTER");	
 		// 직원에 대한 참조 설정
 		card.setEmployee(employee);
+		card.setEmployee(employee);
 		em.persist(card);
 
 		em.getTransaction().commit();
 		em.close();
-		
-		System.out.println("사원증을 통한 직원 정보 접근 : " + 
-		card.getEmployee().getName());
-		System.out.println("직원 통한 시원증 정보 접근 : " + 
-		employee.getCard().getExpireDate());
 		}
 }
