@@ -33,14 +33,8 @@ public class EmployeeCard {
 	
 	private String role;  //권한
 	
-	@OneToOne(optional = false, fetch = FetchType.LAZY) //optinial = 외부 - > 내부 조인
-	@JoinColumn(name = "EMP_CARD_ID")
+	@OneToOne(mappedBy = "card") //소유자가 아니기때문에 mappedBy -> 연관관계 주인의 참조변수(card) 지정
 	private Employee employee;
 	
-	//반대쪽(Employee) 객체에도 참조를 설정하는 메소드
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-		employee.setCard(this);
-	}
 	
 }
