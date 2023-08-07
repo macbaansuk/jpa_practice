@@ -10,7 +10,7 @@ import javax.persistence.Persistence;
 import com.rubypaper.biz.domain.Employee;
 import com.rubypaper.biz.domain.EmployeeCard;
 
-public class OneToOneOneWayClient {
+public class OneToOneBothWayClient {
 
 	public static void main(String[] args) {
 		EntityManagerFactory emf = 
@@ -28,12 +28,26 @@ public class OneToOneOneWayClient {
 	private static void dataSelect(EntityManagerFactory emf) {
 		EntityManager em = emf.createEntityManager();
 
+		//검색된 사원증을 통해 직원 정보 사용하기
 		EmployeeCard employeeCard = em.find(EmployeeCard.class, 1L);
-		System.out.println("검색된 사원증 번호 : " + employeeCard.getCardId());
-		System.out.println("권한 : " + employeeCard.getRole());
-		System.out.println("사원증 소유자 : " + 
-		employeeCard.getEmployee().getName());
+//		System.out.println("검색된 사원증 번호 : " + employeeCard.getCardId());
+//		System.out.println("권한 : " + employeeCard.getRole());
+//		System.out.println("사원증 유효기간 : " + employeeCard.getExpireDate());
+//		System.out.println("사원증 소유자 : " + 
+//		employeeCard.getEmployee().getName());
 		
+		
+		System.out.println("사원증을 통한 직원 정보 접근 : " + 
+		employeeCard.toString());
+		
+		
+		//검색된 직원을 통해 사원증 정보 사용하기
+		Employee employee = em.find(Employee.class, 1L);
+//		System.out.println("검색된 직원 이름 : " + employee.getName());
+//		System.out.println("직원이 소유한 사원증 권한 : " + 
+		System.out.println("사원증 유효기간 : " + employeeCard.getExpireDate());
+		System.out.println("사원증 소유자 : " + 
+		employee.getCard().getExpireDate());
 		
 	}
 
@@ -58,9 +72,10 @@ public class OneToOneOneWayClient {
 		em.getTransaction().commit();
 		em.close();
 		
-		System.out.println("사원증을 통한 직원 정보 접근 : " + 
+		System.out.println("사원증을 통한 직원 정보 접근 : " +
 		card.getEmployee().getName());
-		System.out.println("직원 통한 시원증 정보 접근 : " + 
+		System.out.println("직원을 통한 사원증 정보 접근 : " + 
 		employee.getCard().getExpireDate());
-		}
+	}
+
 }

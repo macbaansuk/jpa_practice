@@ -15,8 +15,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString(exclude = "employee") //toString에서 employee제외
 @Entity
 @Table(name = "S_EMP_CARD")
 public class EmployeeCard {
@@ -34,4 +36,11 @@ public class EmployeeCard {
 	@OneToOne(optional = false, fetch = FetchType.LAZY) //optinial = 외부 - > 내부 조인
 	@JoinColumn(name = "EMP_CARD_ID")
 	private Employee employee;
+	
+	//반대쪽(Employee) 객체에도 참조를 설정하는 메소드
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+		employee.setCard(this);
+	}
+	
 }
